@@ -66,24 +66,32 @@
             <!-- HINT: Choose an appropriate emoji icon (💸, 🔴, or ⚠️ work well) -->
             <!-- HINT: Display largest_expense.description and largest_expense.amount if largest_expense exists -->
             <!-- HINT: Format amount as: R {{ "%.2f"|format(largest_expense.amount|abs) }} -->
-            <!-- EXAMPLE STRUCTURE:
+            <!-- EXAMPLE STRUCTURE: -->
             <article class="metric-card">
-                <div class="metric-card__icon">YOUR_EMOJI_HERE</div>
+                <div class="metric-card__icon">💸</div>
                 <div class="metric-card__content">
                     <p class="metric-card__label">Largest Expense</p>
                     <p class="metric-card__value">
                         {% if largest_expense %}
-                            YOUR_FORMATTED_AMOUNT_HERE
+                            {{ largest_expense.description }}: R {{ "%.2f"|format(largest_expense.amount|abs) }}
                         {% else %}
                             No expenses yet
                         {% endif %}
                     </p>
                 </div>
             </article>
-            -->
+            
             
             <!-- TODO: Add a new metric card for "Average Transaction" -->
             <!-- HINT: Display avg_transaction formatted as currency: R {{ "%.2f"|format(avg_transaction) }} -->
+
+            <article class="metric-card">
+                <div class="metric-card__icon">📊</div>
+                <div class="metric-card__content">
+                    <p class="metric-card__label">Average Transaction</p>
+                    <p class="metric-card__value">R {{ "%.2f"|format(avg_transaction) }}</p>
+                </div>
+            </article>  
             
         </section>
 
