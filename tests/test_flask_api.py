@@ -16,16 +16,27 @@ def client():
 
 def test_financial_summary_endpoint(client):
     """Test that /api/financial_summary returns the correct text report."""
-    response = client.get("/api/financial_summary")
+    # Mock create_unified_dataframe to return a sample DataFrame
+    with patch("helpers.analysis.create_unified_dataframe") as mock_df:
+        import pandas as pd
 
-    assert response.status_code == 200
-    assert response.is_json
+        mock_data = {
+            "date": ["2024-01-01", "2024-01-02"],
+            "description": ["Salary", "Groceries"],
+            "amount": [5000, -150],
+            "category": ["Income", "Groceries"],
+        }
+        mock_df.return_value = pd.DataFrame(mock_data)
+        response = client.get("/api/financial_summary")
 
-    data = response.get_json()
-    assert "Daily Burn Rate" in data
-    assert "Entertainment %" in data
-    assert "Essential Coverage" in data
-    assert "Net Savings" in data
+        assert response.status_code == 200
+        assert response.is_json
+    
+        data = response.get_json()
+        assert "Daily Burn Rate" in data
+        assert "Entertainment %" in data
+        assert "Essential Coverage" in data
+        assert "Net Savings" in data
 
 
 def test_financial_charts_endpoint(client):
